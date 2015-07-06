@@ -29,6 +29,7 @@ import org.eclipse.wst.css.core.internal.preferences.CSSCorePreferenceNames;
 import org.eclipse.wst.css.core.internal.provisional.contenttype.ContentTypeIdForCSS;
 import org.eclipse.wst.css.core.text.ICSSPartitions;
 import org.eclipse.wst.css.ui.internal.CSSUIPlugin;
+import org.eclipse.wst.css.ui.internal.autoedit.AutoEditStrategyForTabs;
 import org.eclipse.wst.css.ui.internal.contentassist.CSSStructuredContentAssistProcessor;
 import org.eclipse.wst.css.ui.internal.preferences.CSSUIPreferenceNames;
 import org.eclipse.wst.css.ui.internal.style.LineStyleProviderForCSS;
@@ -73,6 +74,11 @@ public class StructuredTextViewerConfigurationCSS extends StructuredTextViewerCo
 		for (int i = 0; i < superStrategies.length; i++) {
 			allStrategies.add(superStrategies[i]);
 		}
+
+		// be sure this is added last in list, so it has a change to modify
+		// previous results.
+		// add auto edit strategy that handles when tab key is pressed
+		allStrategies.add(new AutoEditStrategyForTabs());
 
 		return (IAutoEditStrategy[]) allStrategies.toArray(new IAutoEditStrategy[0]);
 	}
